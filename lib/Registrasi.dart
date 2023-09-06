@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:profilepage/RegisterSecond.dart';
 import 'dart:io';
-
 import 'ProfilePage.dart';
 import 'RegistrasiProfileController.dart';
 
@@ -15,7 +15,7 @@ class Registrasi extends StatefulWidget {
 }
 
 class _RegistrasiState extends State<Registrasi> {
-  late File? selectedImage;
+  late File? selectedImage = null;
 
   final RegistrasiProfileController controller = Get.put(RegistrasiProfileController());
 
@@ -38,21 +38,24 @@ class _RegistrasiState extends State<Registrasi> {
     imageController = TextEditingController();
   }
 
-  Widget myText(String label, String hintText, TextInputType InputType, TextEditingController controller){
+  Widget myText(String label, String hintText, TextInputType inputType, TextEditingController controller) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.all(5),
       child: TextField(
-        //memberikan Password untuk setiap form
         controller: controller,
-        keyboardType: InputType,
+        keyboardType: inputType,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: hintText,
           labelText: label,
+          hintText: hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)), // Membuat sudut input sedikit melengkung
+          ),
+          contentPadding: EdgeInsets.all(15.0), // Menambahkan padding di dalam input
         ),
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,49 +67,45 @@ class _RegistrasiState extends State<Registrasi> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/your_image.png', width: 100, height: 100),
-                  Text("Registrasi", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  myText("Username", "Ketik Username Anda", TextInputType.text, usernameController),
+                  Image(image: AssetImage('Images/gambarlogin.png'),
+                    width: 150, // Set your desired width here
+                    height: 150,),
+                  Text("Welcome, Make Your Account", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                  // myText("Username", "Ketik Username Anda", TextInputType.text, usernameController),
                   myText("Name", "Ketik Name Anda", TextInputType.name, nameController),
                   myText("Email", "Ketik Email Anda", TextInputType.emailAddress, emailController),
                   myText("Phone", "Ketik Phone Anda", TextInputType.phone, phoneController),
                   myText("Address", "Ketik Address Anda", TextInputType.streetAddress, addressController),
 
-                  ElevatedButton(
-                    onPressed: () async {
-                      final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-                      if (pickedFile != null) {
-                        setState(() {
-                          selectedImage = File(pickedFile.path);
-                        });
-                      }
-                    },
-                    child: Text('Pick Image'),
-                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // ...
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Menyimpan data ke controller sebelum navigasi
+                          controller.registrasiProfile(
+                            usernameController.text,
+                            nameController.text,
+                            emailController.text,
+                            int.parse(phoneController.text),
+                            addressController.text,
+                            selectedImage != null ? selectedImage!.path : "", // Path gambar yang dipilih
+                          );
 
-                  ElevatedButton(
-                    onPressed: () async {
-                      // Menyimpan data ke controller sebelum navigasi
-                      controller.registrasiProfile(
-                        usernameController.text,
-                        nameController.text,
-                        emailController.text,
-                        int.parse(phoneController.text),
-                        addressController.text,
-                        imageController.text,
-                      );
-
-                      // Navigasi ke halaman ProfilePage
-                      Get.to(() => ProfilePage())?.then((value) {
-                        // Setelah kembali dari ProfilePage, kosongkan inputan teks
-                        usernameController.clear();
-                        nameController.clear();
-                        emailController.clear();
-                        phoneController.clear();
-                        addressController.clear();
-                      });
-                    },
-                    child: Text('Submit'),
+                          // Navigasi ke halaman RegisterSecond
+                          Get.to(() => RegisterSecond(username: usernameController.text, name: nameController.text, email: emailController.text, phone: phoneController.text, address: addressController.text, selectedImage: selectedImage))?.then((value) {
+                            // Setelah kembali dari RegisterSecond, kosongkan inputan teks
+                            usernameController.clear();
+                            nameController.clear();
+                            emailController.clear();
+                            phoneController.clear();
+                            addressController.clear();
+                          });
+                        },
+                        child: Text('Submit'),
+                      ),
+                    ],
                   ),
                 ],
               ),

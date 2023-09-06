@@ -3,62 +3,46 @@ import 'package:get/get.dart';
 import 'dart:io';
 import 'RegistrasiProfileController.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
+  final File selectedImage;
+  final String username;
+  final String name;
+  final String email;
+  final String phone;
+  final String address;
 
-  final File? selectedImage;
-
-  const ProfilePage({Key? key, this.selectedImage}) : super(key: key);
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-
-  late File? selectedImage;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedImage = widget.selectedImage;
-  }
-
-  final RegistrasiProfileController controller = Get.put(RegistrasiProfileController());
+  // Tambahkan parameter name, email, phone, dan address dalam konstruktor
+  const ProfilePage({
+    Key? key,
+    required this.selectedImage,
+    required this.username,
+    required this.name, // Tambahkan parameter name
+    required this.email, // Tambahkan parameter email
+    required this.phone, // Tambahkan parameter phone
+    required this.address, // Tambahkan parameter address
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Profile Page"),),
+      appBar: AppBar(
+        title: Text('Profile Page'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(
-                  () => Text("Username : " + controller.txtUsername.value,
-              ),
+            Image.file(
+              selectedImage,
+              width: 150,
+              height: 150,
             ),
-            Obx(
-                  () => Text("Name : " + controller.txtName.value,
-              ),
-            ),
-            Obx(
-                  () => Text("Email : " + controller.txtEmail.value,
-              ),
-            ),
-            Obx(
-                  () => Text("Phone : " + controller.txtPhone.value,
-              ),
-            ),
-            Obx(
-                  () => Text("Address : " + controller.txtAddress.value,
-              ),
-            ),
-            // Tampilkan gambar yang dipilih
-            Obx(() {
-              return selectedImage != null
-                  ? Image.file(selectedImage!)
-                  : SizedBox.shrink();
-            }),
+            SizedBox(height: 20),
+            Text('Username: $username'),
+            Text('Name: $name'),
+            Text('Email: $email'),
+            Text('Phone: $phone'),
+            Text('Address: $address'),
           ],
         ),
       ),
