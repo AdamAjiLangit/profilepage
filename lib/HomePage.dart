@@ -43,16 +43,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home Page"),),
-      body: Center(
-        child: Container(
-          child: ListView.builder(
-              padding: const EdgeInsets.all(8),
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(
+          "Homepage",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('Images/BackgroundBlue.jpg'), // Replace with your image path
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Container(
+            margin: EdgeInsets.all(16),
+            child: ListView.builder(
               itemCount: listfilm?.length,
               itemBuilder: (BuildContext context, int index) {
                 return Card(
                   elevation: 4,
-                  color: Colors.black, // Set the background color to black
+                  color: Colors.black.withOpacity(0.6), // Set a semi-transparent black background color
                   child: ListTile(
                     leading: Container(
                       width: 80,
@@ -70,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: Colors.white, // Set the text color to white
+                        color: Colors.white,
                       ),
                     ),
                     subtitle: Column(
@@ -87,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 );
-              }
+              },
+            ),
           ),
         ),
       ),

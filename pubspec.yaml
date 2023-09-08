@@ -31,9 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.6.1
-  image_picker: ^0.8.0
-  html: ^0.15.4
-  io: ^1.0.4
+  image_picker: ^1.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -56,8 +54,24 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
   assets:
     - Images/gambarlogin.png
+    - Images/Miles.png
+    - Images/film1.jpeg
+    - Images/film2.jpg
+    - Images/film3.jpg
+    - Images/film4.png
+    - Images/film5.jpeg
+    - Images/film6.jpeg
+    - Images/film7.jpg
+    - Images/film8.jpeg
+    - Images/film9.jpg
+    - Images/film10.jpeg
+    - Images/film11.jpg
+    - Images/film12.jpg
+    - Images/backgroundBlack.jpg
+    - Images/BackgroundBlue.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

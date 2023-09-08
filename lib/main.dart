@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Registrasi(),
+      home: Registrasi(title: 'Register Page'),
       debugShowCheckedModeBanner: false,
     );
   }

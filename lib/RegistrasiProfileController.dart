@@ -1,22 +1,42 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 
 class RegistrasiProfileController extends GetxController {
-  // Buat variabel-variabel yang akan digunakan untuk menyimpan data profil pengguna
-  RxString txtUsername = ''.obs;
-  RxString txtName = ''.obs;
-  RxString txtEmail = ''.obs;
-  RxString txtPhone = ''.obs;
-  RxString txtAddress = ''.obs;
-  RxString imageView = ''.obs;
+  final resultData = RxString("initial");
+  final RxString txtUsername = RxString("");
+  final RxString txtName = RxString("");
+  final RxString txtEmail = RxString("");
+  final RxString txtPhone = RxString("");
+  final RxString txtAddress = RxString("");
+  final RxString txtPassword = RxString("");
 
-  // Metode untuk menyimpan data profil pengguna
-  void registrasiProfile(String username, String name, String email, int phone, String address, String image) {
-    txtUsername.value = username;
-    txtName.value = name;
-    txtEmail.value = email;
-    txtPhone.value = phone.toString();
-    txtAddress.value = address;
-    imageView.value = image;
-    // Anda juga dapat menambahkan logika untuk mengelola gambar di sini jika diperlukan.
+  void resultRegister(
+      String txtUsername,
+      String txtName,
+      String txtEmail,
+      String txtPhone,
+      String txtAddress,
+      String txtPassword,
+      ) {
+    resultData.value = "Registration Success";
+    print("Profile Page " + resultData.value.toString());
+  }
+
+  void registrasiProfile(
+      String txtUsername,
+      String txtName,
+      String txtEmail,
+      String txtPhone,
+      String txtAddress,
+      String txtPassword,
+      Uint8List? image,
+      ) {
+      this.txtUsername.value = txtUsername;
+      this.txtName.value = txtName;
+      this.txtEmail.value = txtEmail;
+      this.txtAddress.value = txtAddress;
+      this.txtPhone.value = txtPhone;
+      this.txtPassword.value = txtPassword;
   }
 }
